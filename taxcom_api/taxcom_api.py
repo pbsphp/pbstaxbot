@@ -46,9 +46,15 @@ def _tree_to_obj(tree):
     """
     items = []
     for item in tree.findall('/item'):
+        name = item.findtext('name').strip()
+        try:
+            price = float(item.findtext('price').strip())
+        except ValueError:
+            price = None
+
         items.append({
-            'name': item.findtext('name').strip(),
-            'price': item.findtext('price').strip(),
+            'name': name,
+            'price': price,
         })
 
     return items
